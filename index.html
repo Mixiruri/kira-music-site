@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,9 +25,9 @@
 <main id="box">
   <div class="brand">Kira <b>Music</b></div>
   <div class="icon" id="icon" aria-hidden="true">✓</div>
-  <h1 id="title">¡Cuenta confirmada!</h1>
-  <p id="text">Ya puedes cerrar esta pestaña, volver a Kira Music e iniciar sesión.</p>
-  <p class="en" id="en"><strong>Account confirmed.</strong> You can close this tab, go back to Kira Music and sign in.</p>
+  <h1 id="title">Account confirmed!</h1>
+  <p id="text">You can close this tab, go back to Kira Music and sign in.</p>
+  <p class="en" id="en"><strong>Cuenta confirmada.</strong> Ya puedes cerrar esta pestaña, volver a Kira Music e iniciar sesión.</p>
 </main>
 <script>
   // the address may carry a login token: read what the page needs and take it off the address bar and the history at once
@@ -38,13 +38,13 @@
     var expired = /expired|invalid/i.test((p.get('error_code') || '') + (p.get('error_description') || ''));
     document.getElementById('box').className = 'bad';
     document.getElementById('icon').textContent = '!';
-    document.getElementById('title').textContent = expired ? 'El enlace ya no sirve' : 'No se pudo confirmar';
+    document.getElementById('title').textContent = expired ? 'This link is no longer valid' : 'We could not confirm it';
     document.getElementById('text').textContent = expired
-      ? 'El enlace venció o ya se usó. Intenta iniciar sesión en Kira Music: si tu cuenta ya está confirmada, entrarás sin problema.'
-      : 'Algo salió mal con el enlace. Intenta iniciar sesión en Kira Music o crea la cuenta de nuevo.';
+      ? 'The link expired or was already used. Try signing in to Kira Music: if your account is already confirmed it will work.'
+      : 'Something went wrong with the link. Try signing in to Kira Music or create the account again.';
     document.getElementById('en').innerHTML = expired
-      ? '<strong>This link is no longer valid.</strong> Try signing in to Kira Music: if your account is already confirmed it will work.'
-      : '<strong>The link did not work.</strong> Try signing in to Kira Music or create the account again.';
+      ? '<strong>El enlace ya no sirve.</strong> Intenta iniciar sesión en Kira Music: si tu cuenta ya está confirmada, entrarás sin problema.'
+      : '<strong>No se pudo confirmar.</strong> Intenta iniciar sesión en Kira Music o crea la cuenta de nuevo.';
   }
 </script>
 </body>
