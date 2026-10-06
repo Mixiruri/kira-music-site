@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Kira Music</title>
+<style>
+  :root { color-scheme: dark; --bg: #0a0c14; --card: #14172a; --text: #eef0ff; --muted: #9aa0c3; --accent: #a78bfa; --ok: #34d399; --bad: #f87171; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: radial-gradient(900px 500px at 20% 0%, #1d1a3a, transparent), var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { width: min(440px, 100%); padding: 36px 30px; border-radius: 24px; background: var(--card); border: 1px solid rgba(255,255,255,.08); text-align: center; box-shadow: 0 30px 80px -30px rgba(0,0,0,.7); }
+  .brand { font-weight: 800; letter-spacing: -.02em; font-size: 20px; margin-bottom: 22px; }
+  .brand b { color: var(--accent); }
+  .icon { width: 72px; height: 72px; margin: 0 auto 18px; border-radius: 50%; display: grid; place-items: center; font-size: 36px; background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+  .bad .icon { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+  h1 { margin: 0 0 8px; font-size: 26px; letter-spacing: -.02em; }
+  p { margin: 0 0 6px; color: var(--muted); }
+  .en { font-size: 14px; opacity: .8; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); }
+  .en strong { color: var(--text); }
+</style>
+</head>
+<body>
+<main id="box">
+  <div class="brand">Kira <b>Music</b></div>
+  <div class="icon" id="icon" aria-hidden="true">✓</div>
+  <h1 id="title">¡Cuenta confirmada!</h1>
+  <p id="text">Ya puedes cerrar esta pestaña, volver a Kira Music e iniciar sesión.</p>
+  <p class="en" id="en"><strong>Account confirmed.</strong> You can close this tab, go back to Kira Music and sign in.</p>
+</main>
+<script>
+  // the address may carry a login token: read what the page needs and take it off the address bar and the history at once
+  var hash = location.hash.slice(1);
+  var p = new URLSearchParams(hash);
+  if (hash) history.replaceState(null, '', location.pathname);
+  if (p.get('error') || p.get('error_code')) {
+    var expired = /expired|invalid/i.test((p.get('error_code') || '') + (p.get('error_description') || ''));
+    document.getElementById('box').className = 'bad';
+    document.getElementById('icon').textContent = '!';
+    document.getElementById('title').textContent = expired ? 'El enlace ya no sirve' : 'No se pudo confirmar';
+    document.getElementById('text').textContent = expired
+      ? 'El enlace venció o ya se usó. Intenta iniciar sesión en Kira Music: si tu cuenta ya está confirmada, entrarás sin problema.'
+      : 'Algo salió mal con el enlace. Intenta iniciar sesión en Kira Music o crea la cuenta de nuevo.';
+    document.getElementById('en').innerHTML = expired
+      ? '<strong>This link is no longer valid.</strong> Try signing in to Kira Music: if your account is already confirmed it will work.'
+      : '<strong>The link did not work.</strong> Try signing in to Kira Music or create the account again.';
+  }
+</script>
+</body>
+</html>
